@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "*"],
   })
 );
 
@@ -26,6 +26,6 @@ app.use((req, res) => {
   res.status(404).send({ error: "Route not found!" });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT as number, "0.0.0.0", () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
