@@ -39,15 +39,19 @@ importers:
       '@fastify/cors': ^8.2.0
       '@mermaid-js/mermaid-cli': ^9.3.0
       '@prisma/client': ^4.8.1
+      dayjs: ^1.11.7
       fastify: ^4.11.0
       prisma: ^4.8.1
       prisma-erd-generator: ^1.2.5
       tsx: ^3.12.2
       typescript: ^4.9.4
+      zod: ^3.20.2
     dependencies:
       '@fastify/cors': 8.2.0
       '@prisma/client': 4.8.1_prisma@4.8.1
+      dayjs: 1.11.7
       fastify: 4.11.0
+      zod: 3.20.2
     devDependencies:
       '@mermaid-js/mermaid-cli': 9.3.0
       prisma: 4.8.1
@@ -8404,4 +8408,8 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  /zod/3.20.2:
+    resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
     dev: false
