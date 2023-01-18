@@ -11,6 +11,7 @@ importers:
       '@expo-google-fonts/inter': ^0.2.2
       '@types/react': ~18.0.14
       '@types/react-native': ~0.70.6
+      dayjs: ^1.11.7
       expo: ~47.0.12
       expo-font: ~11.0.1
       expo-status-bar: ~1.4.2
@@ -25,6 +26,7 @@ importers:
       typescript: ^4.6.3
     dependencies:
       '@expo-google-fonts/inter': 0.2.2
+      dayjs: 1.11.7
       expo: 47.0.13_@babel+core@7.20.12
       expo-font: 11.0.1_expo@47.0.13
       expo-status-bar: 1.4.2
