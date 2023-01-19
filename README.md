@@ -12,7 +12,7 @@ O aplicativo apresenta um quadro diário que mostra a frequência dos hábitos p
 
 - [x] 17/01/2023 **Avançando o back-end e front-end** • Foi ensinada a criação de rotas no backend e também a validação de dados com zod e integração ao banco de dados com prisma. No Frontend foi criado novos componentes e ensinado técnicas para lidar com datas e resolver dificuldades específicas do projeto. Por último no app mobile, a utilização do Nativewind para estilização como a do Tailwind na web, também foram adicionados componentes novos e reaproveitado algumas funções da web para lidar com datas.
 
-- [ ] 18/01/2023 **Finalizando o layout web e mobile** •
+- [x] 18/01/2023 **Finalizando o layout web e mobile** • Foram concluídas as últimas duas rotas do backend e ensinado o momento certo de se compor query SQL a mão. No frontend foi ensinado o uso da biblioteca Radix-UI para criação de componentes com acessibilidade pré configurada e técnicas para estilização com classes condicionais usando o pacote clsx. Por último no app mobile foi ensinado a criação de novas telas e a navegação usando o React Navigator, também foi ensinado a passar propriedades por contexto entre rotas.
 
 - [ ] 19/01/2023 **Conectando a API** •
 
@@ -45,14 +45,10 @@ DATABASE_URL="file:./dev.db"
 
 ### Banco de dados
 
-Com o arquivo .env criado na raiz do `server` rode os seguinte comandos:
+Com o arquivo .env criado na raiz do `server` rode o seguinte comando:
 
 ```bash
-# Gere seu dev.db
 pnpm --filter server exec prisma migrate dev
-
-# Insira os dados iniciais
-pnpm --filter server exec prisma db seed
 ```
 
 > **Note**
