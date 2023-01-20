@@ -1,22 +1,40 @@
+# Habits • Rastreador de hábitos `<NLW Setup/>`
+
 ![](./.github/banner1.png)
 
 ## Sobre
 
-**habits** é um aplicativo web projetado para ajudar você a rastrear seus hábitos e melhorar sua qualidade de vida. Com ele, você pode criar uma lista de hábitos que deseja incorporar em sua rotina diária e marcá-los a medida que os pratica.
+**habits** é um aplicativo projetado para ajudar você a rastrear seus hábitos e melhorar sua qualidade de vida. Com ele, você pode criar uma lista de hábitos que deseja incorporar em sua rotina diária e marcá-los a medida que os pratica.
 
 O aplicativo apresenta um quadro diário que mostra a frequência dos hábitos praticados, permitindo que você veja sua progresso ao longo do tempo e se motive a seguir em frente.
 
 ## Aulas
 
-- [x] 16/01/2023 **Iniciando o projeto de ponta a ponta** • Foi ensinado de forma rápida a base dos 3 apps que serão desenvolvidos. Logo no início foi apresentado a configuração do servidor com a biblioteca fastify, em seguida a criação com projeto React com Vite e o uso do Tailwind e por último, a criação e configuração do app mobile com Expo e React Native.
+<details>
+  <summary>16/01/2023 • <b>Iniciando o projeto de ponta a ponta</b></summary>
+    Foi ensinado de forma rápida a base dos 3 apps que serão desenvolvidos. Logo no início foi apresentado a configuração do servidor com a biblioteca fastify, em seguida a criação com projeto React com Vite e o uso do Tailwind e por último, a criação e configuração do app mobile com Expo e React Native.
+</details>
 
-- [x] 17/01/2023 **Avançando o back-end e front-end** • Foi ensinada a criação de rotas no backend e também a validação de dados com zod e integração ao banco de dados com prisma. No Frontend foi criado novos componentes e ensinado técnicas para lidar com datas e resolver dificuldades específicas do projeto. Por último no app mobile, a utilização do Nativewind para estilização como a do Tailwind na web, também foram adicionados componentes novos e reaproveitado algumas funções da web para lidar com datas.
+<details>
+  <summary>17/01/2023 • <b>Avançando o back-end e front-end</b></summary>
+    Foi ensinada a criação de rotas no backend e também a validação de dados com zod e integração ao banco de dados com prisma. No Frontend foi criado novos componentes e ensinado técnicas para lidar com datas e resolver dificuldades específicas do projeto. Por último no app mobile, a utilização do Nativewind para estilização como a do Tailwind na web, também foram adicionados componentes novos e reaproveitado algumas funções da web para lidar com datas.
+</details>
 
-- [x] 18/01/2023 **Finalizando o layout web e mobile** • Foram concluídas as últimas duas rotas do backend e ensinado o momento certo de se compor query SQL a mão. No frontend foi ensinado o uso da biblioteca Radix-UI para criação de componentes com acessibilidade pré configurada e técnicas para estilização com classes condicionais usando o pacote clsx. Por último no app mobile foi ensinado a criação de novas telas e a navegação usando o React Navigator, também foi ensinado a passar propriedades por contexto entre rotas.
+<details>
+  <summary>18/01/2023 • <b>Finalizando o layout web e mobile</b></summary>
+    Foram concluídas as últimas duas rotas do backend e ensinado o momento certo de se compor query SQL a mão. No frontend foi ensinado o uso da biblioteca Radix-UI para criação de componentes com acessibilidade pré configurada e técnicas para estilização com classes condicionais usando o pacote clsx. Por último no app mobile foi ensinado a criação de novas telas e a navegação usando o React Navigator, também foi ensinado a passar propriedades por contexto entre rotas.
+</details>
 
-- [ ] 19/01/2023 **Conectando a API** •
+<details>
+  <summary>19/01/2023 • <b>Conectando a API</b></summary>
+    Nessa aula o foco foi nos dois projetos frontend, web e mobile. Foi ensinado a buscar dados da API construída no backend usando o useEffect e axios, assim como a transmissão de dados do formulário para a API e toda a integração dos dados recebidos para compor a interface do app web. No app mobile foi feito um processo muito semelhante onde os dados do backend foram conectados com a interface e as informações do formulário de criação de hábito transmitidas para API.
+</details>
 
-- [ ] 20/01/2023 **O próximo nível** •
+<details>
+  <summary>20/01/2023 • <b>O próximo nível</b>
+</details>
+
+![](./.github/banner2.png)
 
 ## Instalação
 
@@ -39,8 +57,8 @@ pnpm install
 
 Crie um arquivo .env em `/apps/server/.env` e cole o seguinte código:
 
-```bash
-DATABASE_URL="file:./dev.db"
+```js
+DATABASE_URL = "file:./dev.db";
 ```
 
 ### Banco de dados
@@ -51,8 +69,24 @@ Com o arquivo .env criado na raiz do `server` rode o seguinte comando:
 pnpm --filter server exec prisma migrate dev
 ```
 
-> **Note**
+> **Warning**
 > O comando `prisma generate` possuí uma falha APENAS na etapa da geração da imagem ERD.svg mas funciona normalmente na geração do PrismaClient.
+
+### Modificando o IP local ou porta
+
+Altere de acordo com o seu endereço local, os seguintes arquivos:
+
+- [axios.ts](./apps/web/src/lib/axios.ts) (web)
+- [axios.ts](./apps/mobile/src/lib/axios.ts) (mobile)
+- [server.ts](./apps/server/src/server.ts) (server)
+
+```js
+// server.ts
+app.listen({ port: 3001, --> host: "10.0.0.104" })
+
+// axios.ts
+--> baseURL: "http://10.0.0.104:3001",
+```
 
 ### Como utilizar os comandos no monorepo
 
@@ -65,7 +99,7 @@ pnpm --filter mobile start
 pnpm --filter server dev
 ```
 
-Como instalar dependências e executar pacotes
+### Como instalar dependências e executar pacotes
 
 ```bash
 pnpm --filter [APP] install [PACOTE]
@@ -84,4 +118,4 @@ Contribuições são sempre bem-vindas! Se você tem alguma ideia para melhorar 
 
 ## Licença
 
-Este projeto está licenciado sob a licença **MIT**. Por favor, leia o arquivo LICENSE.md para mais informações.
+Este projeto está licenciado sob a licença **MIT**. Por favor, leia o arquivo [LICENSE.md](./LICENSE.md) para mais informações.
