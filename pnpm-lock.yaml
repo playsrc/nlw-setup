@@ -13,6 +13,7 @@ importers:
       '@react-navigation/native-stack': ^6.9.8
       '@types/react': ~18.0.14
       '@types/react-native': ~0.70.6
+      axios: ^1.2.3
       dayjs: ^1.11.7
       expo: ~47.0.12
       expo-font: ~11.0.1
@@ -32,6 +33,7 @@ importers:
       '@expo-google-fonts/inter': 0.2.2
       '@react-navigation/native': 6.1.2_tj3nonr5gneraukzjkxpsiy7yu
       '@react-navigation/native-stack': 6.9.8_4yxn5o6hbqm4eqjpnbll7jojyu
+      axios: 1.2.3
       dayjs: 1.11.7
       expo: 47.0.13_@babel+core@7.20.12
       expo-font: 11.0.1_expo@47.0.13
