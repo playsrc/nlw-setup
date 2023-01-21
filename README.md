@@ -34,6 +34,56 @@ O aplicativo apresenta um quadro diário que mostra a frequência dos hábitos p
   <summary>20/01/2023 • <b>O próximo nível</b>
 </details>
 
+## Referência da API
+
+**Obter o resumo dos hábitos**
+
+```bash
+GET /summary
+```
+
+**Obter os hábitos possíveis referente a uma data**
+
+```bash
+GET /day?{date}
+```
+
+| Parâmetro | Tipo     | Descrição                   |
+| :-------- | :------- | :-------------------------- |
+| `date`    | `string` | Data dos possíveis hábitos. |
+
+**Alternar o estado de um hábito específico**
+
+```bash
+PATCH /habits/{id}/toggle
+```
+
+| Parâmetro | Tipo     | Descrição                             |
+| :-------- | :------- | :------------------------------------ |
+| `id`      | `string` | Id do hábito a ter o estado alternado |
+
+**Criar um hábito**
+
+```bash
+POST /habits
+```
+
+Corpo em `JSON`
+
+```js
+{
+  "title": "Beber 2L de água",
+  "weekDays": [0, 2, 4, 6]
+}
+```
+
+| Chave      | Tipo     | Descrição                                   |
+| :--------- | :------- | :------------------------------------------ |
+| `title`    | `string` | Título do hábito a ser criado               |
+| `weekDays` | `array`  | Array numérico referente aos dias da semana |
+
+---
+
 ![](./.github/banner2.png)
 
 ## Instalação
