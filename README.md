@@ -2,6 +2,17 @@
 
 ![](./.github/banner1.png)
 
+## Índice
+
+- [Sobre](#sobre)
+- [Aulas](#aulas)
+- [Referência da API](#referência-da-api)
+- [Demonstração da aplicação completa](#demonstração-da-aplicação-completa)
+- [Instalação](#instalação)
+- [O próximo nível](#o-próximo-nível)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
+
 ## Sobre
 
 **habits** é um aplicativo projetado para ajudar você a rastrear seus hábitos e melhorar sua qualidade de vida. Com ele, você pode criar uma lista de hábitos que deseja incorporar em sua rotina diária e marcá-los a medida que os pratica.
@@ -32,7 +43,12 @@ O aplicativo apresenta um quadro diário que mostra a frequência dos hábitos p
 
 <details>
   <summary>20/01/2023 • <b>O próximo nível</b>
+    Foi concluída toda a integração dos dados com a lista de hábitos exibida no gráfico diário tanto da web, quanto do mobile. Também foram feitas algumas modificações no estilo e animações para que as operações que fossem apresentadas de forma suave.
 </details>
+
+![](./.github/banner2.png)
+
+---
 
 ## Referência da API
 
@@ -82,9 +98,9 @@ Corpo em `JSON`
 | `title`    | `string` | Título do hábito a ser criado               |
 | `weekDays` | `array`  | Array numérico referente aos dias da semana |
 
----
+## Demonstração da aplicação completa
 
-![](./.github/banner2.png)
+![](./.github/demo.gif)
 
 ## Instalação
 
@@ -161,6 +177,12 @@ pnpm --filter web install dayjs
 # Exemplo de execução de pacote
 pnpm --filter server exec prisma studio
 ```
+
+## O próximo nível
+
+- [ ] Autenticação de usuários
+- [ ] Notificações Push / Service Workers
+- [ ] Perfil público com gráfico de resumo
 
 ## Contribuição
 
