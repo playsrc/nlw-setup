@@ -62,41 +62,42 @@ GET /summary
 
 ```bash
 GET /day?{date}
+
+# /day/2023-01-20T14:00:00.000Z
 ```
 
-| Parâmetro | Tipo     | Descrição                   |
-| :-------- | :------- | :-------------------------- |
-| `date`    | `string` | Data dos possíveis hábitos. |
+| Parâmetro | Tipo               | Descrição                   |
+| :-------- | :----------------- | :-------------------------- |
+| `date`    | `Date (ISOString)` | Data dos possíveis hábitos. |
 
 **Alternar o estado de um hábito específico**
 
 ```bash
 PATCH /habits/{id}/toggle
+
+# /habits/67961b77-5096-4b1b-96aa-d21bb949172b/toggle
 ```
 
-| Parâmetro | Tipo     | Descrição                             |
-| :-------- | :------- | :------------------------------------ |
-| `id`      | `string` | Id do hábito a ter o estado alternado |
+| Parâmetro | Tipo            | Descrição                             |
+| :-------- | :-------------- | :------------------------------------ |
+| `id`      | `string (UUID)` | Id do hábito a ter o estado alternado |
 
 **Criar um hábito**
 
 ```bash
 POST /habits
+
+# Corpo em JSON
+# {
+#   "title": "Beber 2L de água",
+#   "weekDays": [0, 2, 4]
+# }
 ```
 
-Corpo em `JSON`
-
-```js
-{
-  "title": "Beber 2L de água",
-  "weekDays": [0, 2, 4, 6]
-}
-```
-
-| Chave      | Tipo     | Descrição                                   |
-| :--------- | :------- | :------------------------------------------ |
-| `title`    | `string` | Título do hábito a ser criado               |
-| `weekDays` | `array`  | Array numérico referente aos dias da semana |
+| Chave      | Tipo       | Descrição                                   |
+| :--------- | :--------- | :------------------------------------------ |
+| `title`    | `string`   | Título do hábito a ser criado               |
+| `weekDays` | `number[]` | Array numérico referente aos dias da semana |
 
 ## Demonstração da aplicação completa
 
@@ -123,8 +124,8 @@ pnpm install
 
 Crie um arquivo .env em `/apps/server/.env` e cole o seguinte código:
 
-```js
-DATABASE_URL = "file:./dev.db";
+```bash
+DATABASE_URL="file:./dev.db"
 ```
 
 ### Banco de dados
@@ -146,12 +147,16 @@ Altere de acordo com o seu endereço local, os seguintes arquivos:
 - [axios.ts](./apps/mobile/src/lib/axios.ts) (mobile)
 - [server.ts](./apps/server/src/server.ts) (server)
 
-```js
-// server.ts
-app.listen({ port: 3001, --> host: "10.0.0.104" })
+```diff
+# server.ts
 
-// axios.ts
---> baseURL: "http://10.0.0.104:3001",
+- app.listen({ port: 3001, host: "10.0.0.104" })
++ app.listen({ port: 3333, host: "0.0.0.0" })
+
+# axios.ts
+
+- baseURL: "http://10.0.0.104:3001",
++ baseURL: "http://0.0.0.0:3333",
 ```
 
 ### Como utilizar os comandos no monorepo
@@ -180,7 +185,10 @@ pnpm --filter server exec prisma studio
 
 ## O próximo nível
 
-- [ ] Autenticação de usuários
+- [ ] Autenticação de usuários (**Em andamento**)
+
+  - 23/01 Estudando monorepo com PNPM e criação de um backend Node.js com rotas de autenticação usando tRPC e JWT com refreshToken via cookies httpOnly
+
 - [ ] Notificações Push / Service Workers
 - [ ] Perfil público com gráfico de resumo
 
