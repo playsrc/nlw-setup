@@ -46,6 +46,11 @@ O aplicativo apresenta um quadro diário que mostra a frequência dos hábitos p
     Foi concluída toda a integração dos dados com a lista de hábitos exibida no gráfico diário tanto da web, quanto do mobile. Também foram feitas algumas modificações no estilo e animações para que as operações que fossem apresentadas de forma suave.
 </details>
 
+<details>
+  <summary>26/01/2023 • <b>Notificações push na Web e Mobile | After NLW Setup</b></summary>
+  Foi ensinado a utilização de Service Workers na aplicação para enviar notificações, em seguida foi abordado a API experimental PushManager em conjunto com a implementação do web-push no backend com rotas para o envio de notificações e a comunicação entre as duas plataformas. Por último no projeto mobile, foi ensinado a utilização do expo-notifications que permite fazer facilmente agendamento de notificações assim como um ter um controle sobre o envio de forma bastante simples.
+</details>
+
 ![](./.github/banner2.png)
 
 ---
@@ -187,9 +192,11 @@ pnpm --filter server exec prisma studio
 
 - [ ] Autenticação de usuários (**Em andamento**)
 
-  - 23/01 Estudando monorepo com PNPM e criação de um backend Node.js com rotas de autenticação usando tRPC e JWT com refreshToken via cookies httpOnly
+  - 23/01 Estudando monorepo com PNPM e criação de um backend Node.js com rotas de autenticação usando tRPC e JWT com refreshToken via cookies httpOnly.
+  - 26/01 Estudo de uma possível implementação de testes unitários com Jest.
 
 - [ ] Notificações Push / Service Workers
+  - 27/01 Estudo intensivo e implementação básica das notificações com a aula extra Notificações push na Web e Mobile no After NLW Setup.
 - [ ] Perfil público com gráfico de resumo
 
 ## Contribuição
