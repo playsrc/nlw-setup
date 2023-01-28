@@ -2,6 +2,9 @@
 
 ![](./.github/banner1.png)
 
+> **Warning** Código instável! esta branch está sendo atualizada para levar o projeto ao próximo nível.
+> Escolha a branch `NLW` para visualizar e rodar código funcional das aulas.
+
 ## Índice
 
 - [Sobre](#sobre)
@@ -192,11 +195,8 @@ pnpm --filter server exec prisma studio
 
 - [ ] Autenticação de usuários (**Em andamento**)
 
-  - 23/01 Estudando monorepo com PNPM e criação de um backend Node.js com rotas de autenticação usando tRPC e JWT com refreshToken via cookies httpOnly.
-  - 26/01 Estudo de uma possível implementação de testes unitários com Jest.
+- [ ] Notificações Push / Service Workers (**Em andamento**)
 
-- [ ] Notificações Push / Service Workers
-  - 27/01 Estudo intensivo e implementação básica das notificações com a aula extra Notificações push na Web e Mobile no After NLW Setup.
 - [ ] Perfil público com gráfico de resumo
 
 ## Contribuição
