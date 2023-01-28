@@ -1,14 +1,17 @@
-import fastify from "fastify";
-import cors from "@fastify/cors";
-import { appRoutes } from "./lib/routes";
-import { notificationRoutes } from "./lib/notifications-routes";
+import * as trpcExpress from "@trpc/server/adapters/express";
+import express from "express";
+import { createContext } from "./lib/trpc";
+import { appRouter } from "./routers/_app";
 
-const app = fastify();
+const app = express();
 
-app.register(cors);
-app.register(appRoutes);
-app.register(notificationRoutes);
+app.use(
+  trpcExpress.createExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+);
 
-app.listen({ port: 3001, host: "10.0.0.104" }).then(() => {
+app.listen(3001, "0.0.0.0", () => {
   console.log(`HTTP Server running on http://localhost:3001`);
 });
