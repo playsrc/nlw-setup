@@ -12,7 +12,7 @@ import colors from "tailwindcss/colors";
 
 import { BackButton } from "../components/BackButton";
 import { Checkbox } from "../components/Checkbox";
-import { api } from "../lib/axios";
+import { trpc } from "../utils/trpc";
 
 const availableWeekDays = [
   "Domingo",
@@ -27,6 +27,7 @@ const availableWeekDays = [
 export function New() {
   const [weekDays, setWeekDays] = useState<number[]>([]);
   const [title, setTitle] = useState("");
+  const newHabit = trpc.habits.create.useMutation();
 
   function handleToggleWeekDay(weekDayIndex: number) {
     if (weekDays.includes(weekDayIndex)) {
@@ -48,7 +49,7 @@ export function New() {
         return;
       }
 
-      await api.post("/habits", { title, weekDays });
+      await newHabit.mutateAsync({ title, weekDays });
 
       setTitle("");
       setWeekDays([]);

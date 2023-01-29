@@ -1,43 +1,33 @@
-import { useCallback, useState } from "react";
-import { Text, View, ScrollView, Alert } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { Alert, ScrollView, Text, View } from "react-native";
 
-import { api } from "../lib/axios";
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
 
+import dayjs from "dayjs";
+import { DAY_SIZE, HabitDay } from "../components/HabitDay";
 import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
-import { HabitDay, DAY_SIZE } from "../components/HabitDay";
-import dayjs from "dayjs";
+import { trpc } from "../utils/trpc";
 
 const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 const datesFromYearStart = generateRangeDatesFromYearStart();
 const minimunSummaryDatesSizes = 18 * 5;
 const amountOfDaysToFill = minimunSummaryDatesSizes - datesFromYearStart.length;
 
-type SummaryProps = Array<{
-  id: string;
-  date: string;
-  amount: number;
-  completed: number;
-}>;
-
 export function Home() {
-  const [loading, setLoading] = useState(true);
-  const [summary, setSummary] = useState<SummaryProps | null>(null);
+  const summaryDays = trpc.habits.summary.useQuery();
+  const [summary, setSummary] = useState<typeof summaryDays.data | null>(null);
 
   const { navigate } = useNavigation();
 
   async function fetchData() {
     try {
-      setLoading(true);
-      const response = await api.get("/summary");
+      const response = await summaryDays.refetch();
       setSummary(response.data);
     } catch (error) {
       Alert.alert("Ops", "Não foi possível carregar o sumário de hábitos.");
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -47,7 +37,7 @@ export function Home() {
     }, [])
   );
 
-  if (loading) {
+  if (summaryDays.isLoading || summaryDays.isFetching) {
     return <Loading />;
   }
 

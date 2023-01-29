@@ -10,6 +10,13 @@ import {
 } from "@expo-google-fonts/inter";
 import * as Notifications from "expo-notifications";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { httpBatchLink } from "@trpc/client";
+import { useState } from "react";
+import { Loading } from "./src/components/Loading";
+import { Routes } from "./src/routes";
+import { trpc } from "./src/utils/trpc";
+
 async function scheduleNotification() {
   const trigger = new Date(Date.now());
   trigger.setMinutes(trigger.getMinutes() + 1);
@@ -28,9 +35,6 @@ async function getScheduleNotifications() {
   console.log(schedules);
 }
 
-import { Loading } from "./src/components/Loading";
-import { Routes } from "./src/routes";
-
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -47,20 +51,33 @@ export default function App() {
     Inter_800ExtraBold,
   });
 
+  const [queryClient] = useState(() => new QueryClient());
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [
+        httpBatchLink({
+          url: "http://10.0.0.104:3001/api",
+        }),
+      ],
+    })
+  );
+
   if (!fontsLoaded) {
     return <Loading />;
   }
 
   return (
-    <>
-      {/* <Button title="Enviar" onPress={scheduleNotification} />
-      <Button title="Agendadas" onPress={getScheduleNotifications} /> */}
-      <Routes />
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-    </>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        {/* <Button title="Enviar" onPress={scheduleNotification} />
+        <Button title="Agendadas" onPress={getScheduleNotifications} /> */}
+        <Routes />
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+      </QueryClientProvider>
+    </trpc.Provider>
   );
 }
