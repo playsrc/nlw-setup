@@ -1,7 +1,7 @@
-import { Check } from "phosphor-react";
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { Check } from "phosphor-react";
 import { FormEvent, useState } from "react";
-import { api } from "../lib/axios";
+import { trpc } from "../utils/trpc";
 
 const availableWeekDays = [
   "Domingo",
@@ -17,6 +17,8 @@ export function NewHabitForm() {
   const [title, setTitle] = useState("");
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
+  const newHabit = trpc.habits.create.useMutation();
+
   async function createNewHabit(event: FormEvent) {
     event.preventDefault();
 
@@ -24,10 +26,7 @@ export function NewHabitForm() {
       return;
     }
 
-    await api.post("habits", {
-      title,
-      weekDays,
-    });
+    await newHabit.mutateAsync({ title, weekDays });
 
     setTitle("");
     setWeekDays([]);

@@ -1,43 +1,26 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import dayjs from "dayjs";
 import { Check } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { api } from "../lib/axios";
+import { trpc } from "../utils/trpc";
 
 interface HabitLisProps {
   date: Date;
   onCompletedChanged: (completed: number) => void;
 }
 
-interface HabitsInfo {
-  possibleHabits: {
-    id: string;
-    title: string;
-    created_at: string;
-  }[];
-  completedHabits: string[];
-}
-
 export function HabitsList({ date, onCompletedChanged }: HabitLisProps) {
-  const [habitsInfo, setHabitsInfo] = useState<HabitsInfo>();
-
-  useEffect(() => {
-    api
-      .get("day", {
-        params: {
-          date: date.toISOString(),
-        },
-      })
-      .then((response) => {
-        setHabitsInfo(response.data);
-      });
-  }, []);
+  const toggleById = trpc.habits.toggleById.useMutation();
+  const { data: habitsInfo, refetch: setHabitsInfo } = trpc.habits.day.useQuery(
+    {
+      date: date.toISOString(),
+    }
+  );
 
   async function handleToggleHabit(habitId: string) {
     const isHabitAlreadyCompleted =
       habitsInfo!.completedHabits.includes(habitId);
 
-    await api.patch(`/habits/${habitId}/toggle`);
+    await toggleById.mutateAsync({ id: habitId });
 
     let completedHabits: string[] = [];
 
@@ -49,10 +32,7 @@ export function HabitsList({ date, onCompletedChanged }: HabitLisProps) {
       completedHabits = [...habitsInfo!.completedHabits, habitId];
     }
 
-    setHabitsInfo({
-      possibleHabits: habitsInfo!.possibleHabits,
-      completedHabits,
-    });
+    setHabitsInfo();
 
     onCompletedChanged(completedHabits.length);
   }
