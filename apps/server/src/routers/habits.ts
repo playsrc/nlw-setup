@@ -40,7 +40,7 @@ export const habitsRouter = router({
         date: z.string().datetime(),
       })
     )
-    .mutation(async ({ input }) => {
+    .query(async ({ input }) => {
       const { date } = input;
 
       const parsedDate = dayjs(date).startOf("day");
@@ -132,7 +132,16 @@ export const habitsRouter = router({
     }),
 
   summary: publicProcedure.query(async () => {
-    const summary = await prisma.$queryRaw`
+    const summaryType = z
+      .object({
+        id: z.string(),
+        date: z.date(),
+        completed: z.number(),
+        amount: z.number(),
+      })
+      .array();
+
+    const summary: z.infer<typeof summaryType> = await prisma.$queryRaw`
       SELECT
         D.id,
         D.date,
@@ -155,6 +164,6 @@ export const habitsRouter = router({
       FROM days D
     `;
 
-    return summary;
+    return summaryType.parse(summary);
   }),
 });
