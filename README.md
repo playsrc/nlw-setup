@@ -190,14 +190,7 @@ pnpm --filter server exec prisma studio
 
 ## O próximo nível
 
-- [ ] Autenticação de usuários (**Em andamento**)
-
-  - 23/01 Estudando monorepo com PNPM e criação de um backend Node.js com rotas de autenticação usando tRPC e JWT com refreshToken via cookies httpOnly.
-  - 26/01 Estudo de uma possível implementação de testes unitários com Jest.
-
-- [ ] Notificações Push / Service Workers
-  - 27/01 Estudo intensivo e implementação básica das notificações com a aula extra Notificações push na Web e Mobile no After NLW Setup.
-- [ ] Perfil público com gráfico de resumo
+Veja a branch `main` para acompanhar o desenvolvimento das novas funcionalidades
 
 ## Contribuição
 
