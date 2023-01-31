@@ -5,9 +5,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
+// generator erd {
+//   provider = "prisma-erd-generator"
+// }
 
 datasource db {
   provider = "sqlite"
@@ -57,4 +57,15 @@ model DayHabit {
 
   @@unique([day_id, habit_id])
   @@map("day_habits")
+}
+
+model User {
+  id            String  @id @default(cuid())
+  name          String
+  email         String
+  password      String
+  refresh_token String?
+
+  @@unique([email, refresh_token])
+  @@map("users")
 }
