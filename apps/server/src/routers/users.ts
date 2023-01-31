@@ -98,6 +98,24 @@ export const usersRouter = router({
       return accessToken;
     }),
 
+  refreshToken: protectedProcedure.query(({ ctx }) => {
+    const { req, user } = ctx;
+
+    if (req.cookies.jwt !== user.refresh_token) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const accessToken = jwt.sign(
+      { id: user.id },
+      process.env.ACCESS_TOKEN_SECRET!,
+      {
+        expiresIn: "1m",
+      }
+    );
+
+    return accessToken;
+  }),
+
   me: protectedProcedure.query(({ ctx }) => {
     const { id, name, email } = ctx.user;
     return { id, name, email };
