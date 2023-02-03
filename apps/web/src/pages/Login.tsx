@@ -1,8 +1,31 @@
 import LogoImage from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 import { SignIn } from "phosphor-react";
+import { FormEvent, useState } from "react";
+import { trpc } from "../utils/trpc";
+
+export let token: string;
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const loginMut = trpc.users.login.useMutation({
+    async onSuccess(accessToken) {
+      localStorage.setItem("token", accessToken);
+      // navigate("/app");
+    },
+    onError(error) {
+      window.alert(`Oops, ocorreu um erro: ${error.message}`);
+    },
+  });
+
+  async function onSubmit(event: FormEvent) {
+    event.preventDefault();
+    await loginMut.mutateAsync({ email, password });
+  }
+
   return (
     <div className="h-screen bg-gradient-to-b from-zinc-900 to-indigo-900">
       <div className="max-w-md mx-auto pt-8 px-4">
@@ -12,39 +35,41 @@ export default function Login() {
           </Link>
         </header>
 
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="mb-6">
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-white"
             >
               E-mail
             </label>
             <input
               type="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium  text-white"
             >
               Senha
             </label>
             <input
               type="password"
               id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               required
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800"
+            className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-violet-600 hover:bg-violet-700 focus:ring-violet-800"
           >
             <SignIn weight="bold" size={20} />
             Entrar
